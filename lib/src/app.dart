@@ -16,7 +16,9 @@ class App extends StatelessWidget {
       theme: FlexThemeData.light(scheme: FlexScheme.blueWhale),
       darkTheme: FlexThemeData.dark(scheme: FlexScheme.blueWhale),
       themeMode: ThemeMode.light,
-      home: const LoginScreen(),
+      home: LoginScreen(
+        databaseRepository: databaseRepository,
+      ),
       // OverviewScreen(databaseRepository: databaseRepository),
     );
   }
