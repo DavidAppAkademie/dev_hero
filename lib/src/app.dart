@@ -1,6 +1,6 @@
 import 'package:dev_hero/src/data/database_repository.dart';
 import 'package:dev_hero/src/data/mock_database.dart';
-import 'package:dev_hero/src/features/overview/presentation/overview_screen.dart';
+import 'package:dev_hero/src/features/authentication/presentation/login_screen.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +16,8 @@ class App extends StatelessWidget {
       theme: FlexThemeData.light(scheme: FlexScheme.blueWhale),
       darkTheme: FlexThemeData.dark(scheme: FlexScheme.blueWhale),
       themeMode: ThemeMode.light,
-      home: OverviewScreen(databaseRepository: databaseRepository),
+      home: const LoginScreen(),
+      // OverviewScreen(databaseRepository: databaseRepository),
     );
   }
 }
