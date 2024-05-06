@@ -30,8 +30,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Form(
             child: Column(
               children: [
-                // TODO: replace with actual logo
-                Center(child: Image.network("https://i.imgur.com/MMH5e7K.png")),
+                const Center(
+                    child: Image(
+                        width: 300,
+                        image: AssetImage('assets/images/logo_light.png'))),
                 const SizedBox(height: 32),
                 TextFormField(
                   decoration: const InputDecoration(
