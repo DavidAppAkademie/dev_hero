@@ -16,7 +16,7 @@ class OverviewScreen extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Übersicht"),
+          title: const Text("Quiz Games"),
         ),
         body: ListView.builder(
           itemCount: quizGames.length,
