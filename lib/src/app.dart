@@ -1,8 +1,8 @@
+import 'package:dev_hero/src/config/theme.dart';
 import 'package:dev_hero/src/data/database_repository.dart';
 import 'package:dev_hero/src/data/mock_database.dart';
 import 'package:dev_hero/src/features/quiz/domain/quiz_game.dart';
 import 'package:dev_hero/src/features/quiz/presentation/quiz_screen.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -17,8 +17,8 @@ class App extends StatelessWidget {
     QuizGame sampleQuizGame = allQuizGames[1];
 
     return MaterialApp(
-      theme: FlexThemeData.light(scheme: FlexScheme.blueWhale),
-      darkTheme: FlexThemeData.dark(scheme: FlexScheme.blueWhale),
+      theme: lightTheme,
+      darkTheme: darkTheme,
       themeMode: ThemeMode.light,
       home: QuizScreen(
         quizGame: sampleQuizGame,
