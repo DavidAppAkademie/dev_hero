@@ -12,12 +12,18 @@ class MockDatabase implements DatabaseRepository {
   // Methoden der Schablone `DatabaseRepository`
 
   @override
-  List<QuizGame> getQuizgames() {
+  Future<List<QuizGame>> getQuizgames() async {
+    // Simuliere Wartezeit von 3 Sekunden (langsame Verbindung)
+    await Future.delayed(const Duration(seconds: 2));
+
     return quizGames;
   }
 
   @override
-  Leaderboard? getLeaderboard(QuizGame game) {
+  Future<Leaderboard?> getLeaderboard(QuizGame game) async {
+    // Simuliere Wartezeit von 3 Sekunden (langsame Verbindung)
+    await Future.delayed(const Duration(seconds: 2));
+
     // durchsuche alle Leaderboards nach dem gesuchten QuizGame
     for (Leaderboard l in leaderboards) {
       if (l.quizGameId == game.id) {
@@ -30,8 +36,11 @@ class MockDatabase implements DatabaseRepository {
   }
 
   @override
-  void addScore(Score score, QuizGame quizGame) {
-    Leaderboard? leaderboard = getLeaderboard(quizGame);
+  Future<void> addScore(Score score, QuizGame quizGame) async {
+    // Simuliere Wartezeit von 3 Sekunden (langsame Verbindung)
+    await Future.delayed(const Duration(seconds: 2));
+
+    Leaderboard? leaderboard = await getLeaderboard(quizGame);
     if (leaderboard == null) {
       // Leaderboard existiert noch nicht
       // -> erstelle neues Leaderboard mit dem Score als erstem Eintrag

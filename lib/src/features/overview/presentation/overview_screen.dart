@@ -12,21 +12,44 @@ class OverviewScreen extends StatelessWidget {
   // Methoden
   @override
   Widget build(BuildContext context) {
-    List<QuizGame> quizGames = databaseRepository.getQuizgames();
+    Future<List<QuizGame>> quizGamesFuture = databaseRepository.getQuizgames();
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Quiz Games"),
-        ),
-        body: ListView.builder(
-          itemCount: quizGames.length,
-          itemBuilder: (context, index) {
-            QuizGame currentQuizgame = quizGames[index];
-            return ListTile(
-                title: Text(currentQuizgame.chapterName),
-                subtitle:
-                    Text("${currentQuizgame.quizQuestions.length} Fragen"));
-          },
-        ));
+      appBar: AppBar(
+        title: const Text("Quiz Games"),
+      ),
+      body: FutureBuilder(
+        future: quizGamesFuture,
+        builder: (context, snapshot) {
+          /* 
+                1. Uncompleted (Ladend)
+                2. Completed with data (Fertig)
+                3. Completed with error (Fehler)
+                 */
+
+          if (snapshot.hasData &&
+              snapshot.connectionState == ConnectionState.done) {
+            // FALL: Future ist komplett und hat Daten!
+            List<QuizGame> quizGames = snapshot.data!;
+            return ListView.builder(
+              itemCount: quizGames.length,
+              itemBuilder: (context, index) {
+                QuizGame currentQuizgame = quizGames[index];
+                return ListTile(
+                    title: Text(currentQuizgame.chapterName),
+                    subtitle:
+                        Text("${currentQuizgame.quizQuestions.length} Fragen"));
+              },
+            );
+          } else if (snapshot.connectionState != ConnectionState.done) {
+            // FALL: Sind noch im Ladezustand
+            return const Center(child: CircularProgressIndicator());
+          } else {
+            // FALL: Es gab nen Fehler
+            return const Icon(Icons.error);
+          }
+        },
+      ),
+    );
   }
 }
