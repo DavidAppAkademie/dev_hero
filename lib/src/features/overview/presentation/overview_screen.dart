@@ -2,18 +2,29 @@ import 'package:dev_hero/src/data/database_repository.dart';
 import 'package:dev_hero/src/features/quiz/domain/quiz_game.dart';
 import 'package:flutter/material.dart';
 
-class OverviewScreen extends StatelessWidget {
+class OverviewScreen extends StatefulWidget {
   // Attribute
   final DatabaseRepository databaseRepository;
 
   // Konstruktor
   const OverviewScreen({super.key, required this.databaseRepository});
 
+  @override
+  State<OverviewScreen> createState() => _OverviewScreenState();
+}
+
+class _OverviewScreenState extends State<OverviewScreen> {
+  late Future<List<QuizGame>> quizGamesFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    quizGamesFuture = widget.databaseRepository.getQuizgames();
+  }
+
   // Methoden
   @override
   Widget build(BuildContext context) {
-    Future<List<QuizGame>> quizGamesFuture = databaseRepository.getQuizgames();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Quiz Games"),
