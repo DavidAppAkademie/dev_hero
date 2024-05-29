@@ -1,4 +1,5 @@
 import 'package:dev_hero/src/data/database_repository.dart';
+import 'package:dev_hero/src/features/authentication/application/validators.dart';
 import 'package:dev_hero/src/features/authentication/presentation/login_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
   // state
   bool showPassword = false;
 
+  late TextEditingController _emailController;
+  late TextEditingController _pwController;
+  late TextEditingController _pwRepeatController;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController = TextEditingController();
+    _pwController = TextEditingController();
+    _pwRepeatController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _pwController.dispose();
+    _pwRepeatController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +57,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         image: AssetImage('assets/images/logo_light.png'))),
                 const SizedBox(height: 32),
                 TextFormField(
+                  controller: _emailController,
+                  validator: validateEmail,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Email",
@@ -44,6 +68,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 const SizedBox(height: 32),
                 TextFormField(
+                  controller: _pwController,
+                  validator: validatePw,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   obscureText: !showPassword,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
@@ -63,6 +90,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
+                  controller: _pwRepeatController,
+                  validator: (value) {
+                    return validateRepeatPw(_pwController.text, value)
+                        ? null
+                        : "Passwörter müssen identisch sein";
+                  },
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   obscureText: !showPassword,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),

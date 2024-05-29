@@ -1,4 +1,5 @@
 import 'package:dev_hero/src/data/database_repository.dart';
+import 'package:dev_hero/src/features/authentication/application/validators.dart';
 import 'package:dev_hero/src/features/authentication/presentation/sign_up_screen.dart';
 import 'package:dev_hero/src/features/overview/presentation/overview_screen.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,23 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   // state:
+  late TextEditingController _emailController;
+  late TextEditingController _pwController;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController = TextEditingController();
+    _pwController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _pwController.dispose();
+    super.dispose();
+  }
+
   bool showPassword = false;
 
   @override
@@ -37,6 +55,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         image: AssetImage('assets/images/logo_light.png'))),
                 const SizedBox(height: 32),
                 TextFormField(
+                  controller: _emailController,
+                  validator: validateEmail,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Email",
@@ -45,6 +66,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
+                  controller: _pwController,
+                  validator: validatePw,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   obscureText: !showPassword,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
