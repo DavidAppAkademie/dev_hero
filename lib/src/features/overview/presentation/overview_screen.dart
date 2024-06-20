@@ -1,5 +1,6 @@
 import 'package:dev_hero/src/data/database_repository.dart';
 import 'package:dev_hero/src/features/quiz/domain/quiz_game.dart';
+import 'package:dev_hero/src/features/quiz/presentation/quiz_screen.dart';
 import 'package:flutter/material.dart';
 
 class OverviewScreen extends StatefulWidget {
@@ -47,6 +48,16 @@ class _OverviewScreenState extends State<OverviewScreen> {
               itemBuilder: (context, index) {
                 QuizGame currentQuizgame = quizGames[index];
                 return ListTile(
+                    onTap: () {
+                      // Navigiere zu Quizscreen
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => QuizScreen(
+                              quizGame: currentQuizgame,
+                            ),
+                          ));
+                    },
                     title: Text(currentQuizgame.chapterName),
                     subtitle:
                         Text("${currentQuizgame.quizQuestions.length} Fragen"));

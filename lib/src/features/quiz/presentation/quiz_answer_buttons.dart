@@ -1,12 +1,13 @@
-import 'package:dev_hero/src/features/quiz/domain/quiz_question.dart';
+import 'package:dev_hero/src/features/quiz/domain/quiz_answer.dart';
+import 'package:dev_hero/src/features/quiz/domain/quiz_game.dart';
 import 'package:flutter/material.dart';
 
 class QuizAnswerButtons extends StatelessWidget {
   // Attribute
-  final QuizQuestion quizQuestion;
+  final QuizGame quizGame;
 
   // Konstruktor
-  const QuizAnswerButtons({super.key, required this.quizQuestion});
+  const QuizAnswerButtons({super.key, required this.quizGame});
 
   // Methoden
   @override
@@ -15,18 +16,28 @@ class QuizAnswerButtons extends StatelessWidget {
   }
 
   Column _generateAnswerButtons() {
+    final currentQuestion = quizGame.getCurrentQuizQuestion();
+
     List<Widget> answerButtons = [];
-    for (String answer in quizQuestion.answers) {
+    for (int i = 0; i < currentQuestion!.answers.length; i++) {
       answerButtons.add(
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 4),
           child: SizedBox(
             width: 350,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                // Sage dem QuizGame, dass eine Frage beantwortet wurde
+                quizGame.answerQuestion(
+                  QuizAnswer(
+                    quizQuestion: currentQuestion,
+                    selectedAnswerIndex: i,
+                  ),
+                );
+              },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(answer),
+                child: Text(currentQuestion.answers[i]),
               ),
             ),
           ),
