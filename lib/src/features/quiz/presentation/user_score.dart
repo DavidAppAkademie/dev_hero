@@ -1,3 +1,4 @@
+import 'package:dev_hero/src/features/leaderboard/presentation/leaderboard_screen.dart';
 import 'package:dev_hero/src/features/quiz/domain/quiz_game.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,12 @@ class UserScore extends StatelessWidget {
           const SizedBox(height: 16),
           ElevatedButton(
             onPressed: () {
-              // TODO: feature: Scoreboard
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LeaderboardScreen(),
+                ),
+              );
             },
             child: const Padding(
               padding: EdgeInsets.all(8.0),
