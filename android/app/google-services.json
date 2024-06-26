@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "688769884809",
+    "project_id": "devhero5",
+    "storage_bucket": "devhero5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:688769884809:android:577e127b70f41b76871c58",
+        "android_client_info": {
+          "package_name": "com.example.dev_hero"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1s7nZnHh7c3qb7PbyjvVCn3pXZJMKCJk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
