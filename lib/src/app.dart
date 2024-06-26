@@ -1,17 +1,14 @@
 import 'package:dev_hero/src/config/theme.dart';
 import 'package:dev_hero/src/data/database_repository.dart';
-import 'package:dev_hero/src/data/mock_database.dart';
 import 'package:dev_hero/src/features/authentication/presentation/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  final DatabaseRepository databaseRepository;
+  const App({super.key, required this.databaseRepository});
 
   @override
   Widget build(BuildContext context) {
-    // Database einmal an der Wurzel erzeugt
-    DatabaseRepository databaseRepository = MockDatabase();
-
     // List<QuizGame> allQuizGames = databaseRepository.getQuizgames();
     // QuizGame sampleQuizGame = allQuizGames[1];
 
