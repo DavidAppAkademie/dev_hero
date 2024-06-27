@@ -1,15 +1,19 @@
+import 'package:dev_hero/src/data/auth_repository.dart';
 import 'package:dev_hero/src/data/database_repository.dart';
 import 'package:dev_hero/src/features/authentication/application/validators.dart';
 import 'package:dev_hero/src/features/authentication/presentation/sign_up_screen.dart';
-import 'package:dev_hero/src/features/overview/presentation/overview_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
   // Attribute
   final DatabaseRepository databaseRepository;
+  final AuthRepository authRepository;
 
   // Konstruktor
-  const LoginScreen({super.key, required this.databaseRepository});
+  const LoginScreen(
+      {super.key,
+      required this.databaseRepository,
+      required this.authRepository});
 
   // Methoden
   @override
@@ -88,16 +92,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 32),
                 ElevatedButton(
-                  onPressed: () {
-                    // TODO: login logik einbauen
-
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => OverviewScreen(
-                            databaseRepository: widget.databaseRepository,
-                          ),
-                        ));
+                  onPressed: () async {
+                    await widget.authRepository.loginWithEmailAndPassword(
+                        _emailController.text, _pwController.text);
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(8.0),
@@ -114,6 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         MaterialPageRoute(
                           builder: (context) => SignUpScreen(
                             databaseRepository: widget.databaseRepository,
+                            authRepository: widget.authRepository,
                           ),
                         ));
                   },

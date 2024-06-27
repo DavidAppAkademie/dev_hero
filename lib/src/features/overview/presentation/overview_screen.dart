@@ -1,3 +1,4 @@
+import 'package:dev_hero/src/data/auth_repository.dart';
 import 'package:dev_hero/src/data/database_repository.dart';
 import 'package:dev_hero/src/features/quiz/domain/quiz_game.dart';
 import 'package:dev_hero/src/features/quiz/presentation/quiz_screen.dart';
@@ -6,9 +7,13 @@ import 'package:flutter/material.dart';
 class OverviewScreen extends StatefulWidget {
   // Attribute
   final DatabaseRepository databaseRepository;
+  final AuthRepository authRepository;
 
   // Konstruktor
-  const OverviewScreen({super.key, required this.databaseRepository});
+  const OverviewScreen(
+      {super.key,
+      required this.databaseRepository,
+      required this.authRepository});
 
   @override
   State<OverviewScreen> createState() => _OverviewScreenState();
@@ -29,6 +34,14 @@ class _OverviewScreenState extends State<OverviewScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Quiz Games"),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await widget.authRepository.logout();
+            },
+            icon: const Icon(Icons.logout),
+          ),
+        ],
       ),
       body: FutureBuilder(
         future: quizGamesFuture,
