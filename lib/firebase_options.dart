@@ -65,4 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'devhero5.appspot.com',
     iosBundleId: 'com.example.devHero',
   );
+
 }
