@@ -14,4 +14,19 @@ class QuizQuestion {
   });
 
   // Methoden
+  Map<String, dynamic> toMap() {
+    return {
+      'question': question,
+      'answers': answers,
+      'correctAnswerIndex': correctAnswerIndex,
+    };
+  }
+
+  factory QuizQuestion.fromMap(Map<String, dynamic> map) {
+    return QuizQuestion(
+      question: map["question"],
+      answers: List<String>.from(map["answers"]),
+      correctAnswerIndex: map["correctAnswerIndex"],
+    );
+  }
 }

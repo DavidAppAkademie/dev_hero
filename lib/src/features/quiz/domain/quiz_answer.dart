@@ -16,4 +16,18 @@ class QuizAnswer {
   String getSelectedAnswer() {
     return quizQuestion.answers[selectedAnswerIndex];
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'quizQuestion': quizQuestion.toMap(),
+      'selectedAnswerIndex': selectedAnswerIndex,
+    };
+  }
+
+  factory QuizAnswer.fromMap(Map<String, dynamic> map) {
+    return QuizAnswer(
+      quizQuestion: QuizQuestion.fromMap(map["quizQuestion"]),
+      selectedAnswerIndex: map["selectedAnswerIndex"],
+    );
+  }
 }

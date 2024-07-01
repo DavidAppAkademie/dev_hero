@@ -62,4 +62,24 @@ class QuizGame {
     currentQuestionIndex = 0;
     quizAnswers = [];
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'chapterNumber': chapterNumber,
+      'chapterName': chapterName,
+      'quizQuestions':
+          quizQuestions.map((question) => question.toMap()).toList(),
+    };
+  }
+
+  factory QuizGame.fromMap(Map<String, dynamic> map) {
+    return QuizGame(
+      id: map["id"],
+      chapterNumber: map["chapterNumber"],
+      chapterName: map["chapterName"],
+      quizQuestions: List<QuizQuestion>.from(
+          map["quizQuestions"].map((x) => QuizQuestion.fromMap(x))),
+    );
+  }
 }
