@@ -67,6 +67,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => QuizScreen(
+                              databaseRepository: widget.databaseRepository,
                               quizGame: currentQuizgame,
                             ),
                           ));

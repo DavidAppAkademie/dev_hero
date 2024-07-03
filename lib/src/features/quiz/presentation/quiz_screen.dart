@@ -1,3 +1,4 @@
+import 'package:dev_hero/src/data/database_repository.dart';
 import 'package:dev_hero/src/features/quiz/domain/quiz_game.dart';
 import 'package:dev_hero/src/features/quiz/presentation/quiz_answer_buttons.dart';
 import 'package:dev_hero/src/features/quiz/presentation/user_score.dart';
@@ -6,9 +7,11 @@ import 'package:flutter/material.dart';
 class QuizScreen extends StatefulWidget {
   // Attribute
   final QuizGame quizGame;
+  final DatabaseRepository databaseRepository;
 
   // Konstruktor
-  const QuizScreen({super.key, required this.quizGame});
+  const QuizScreen(
+      {super.key, required this.quizGame, required this.databaseRepository});
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
@@ -27,7 +30,10 @@ class _QuizScreenState extends State<QuizScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: isGameOver
-            ? UserScore(quizGame: widget.quizGame)
+            ? UserScore(
+                quizGame: widget.quizGame,
+                databaseRepository: widget.databaseRepository,
+              )
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

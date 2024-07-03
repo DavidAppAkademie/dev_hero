@@ -1,11 +1,14 @@
+import 'package:dev_hero/src/data/database_repository.dart';
 import 'package:dev_hero/src/features/leaderboard/presentation/leaderboard_screen.dart';
 import 'package:dev_hero/src/features/quiz/domain/quiz_game.dart';
 import 'package:flutter/material.dart';
 
 class UserScore extends StatelessWidget {
   final QuizGame quizGame;
+  final DatabaseRepository databaseRepository;
 
-  const UserScore({super.key, required this.quizGame});
+  const UserScore(
+      {super.key, required this.quizGame, required this.databaseRepository});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,10 @@ class UserScore extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const LeaderboardScreen(),
+                  builder: (context) => LeaderboardScreen(
+                    databaseRepository: databaseRepository,
+                    quizGame: quizGame,
+                  ),
                 ),
               );
             },
