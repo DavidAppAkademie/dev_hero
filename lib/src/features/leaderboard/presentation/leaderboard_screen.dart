@@ -1,3 +1,4 @@
+import 'package:dev_hero/src/data/auth_repository.dart';
 import 'package:dev_hero/src/data/database_repository.dart';
 import 'package:dev_hero/src/features/quiz/domain/leaderboard.dart';
 import 'package:dev_hero/src/features/quiz/domain/quiz_game.dart';
@@ -8,8 +9,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class LeaderboardScreen extends StatefulWidget {
   final QuizGame quizGame;
   final DatabaseRepository databaseRepository;
+  final AuthRepository authRepository;
   const LeaderboardScreen(
-      {super.key, required this.databaseRepository, required this.quizGame});
+      {super.key,
+      required this.databaseRepository,
+      required this.quizGame,
+      required this.authRepository});
 
   @override
   State<LeaderboardScreen> createState() => _LeaderboardScreenState();
@@ -28,7 +33,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Score s = widget.quizGame.calculateScore("Tobi");
+    final user = widget.authRepository.getCurrentUser()!;
+    Score s = widget.quizGame.calculateScore(user.email!);
 
     return Scaffold(
       appBar: AppBar(
@@ -52,6 +58,11 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                       return const Text(
                           "Es wurde noch keine Bestenliste angelegt!");
                     } else {
+                      leaderboard.scores.sort(
+                        (a, b) {
+                          return b.score.compareTo(a.score);
+                        },
+                      );
                       return ListView.builder(
                         itemCount: leaderboard.scores.length,
                         itemBuilder: (context, index) {

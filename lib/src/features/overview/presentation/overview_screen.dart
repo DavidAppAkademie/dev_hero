@@ -69,6 +69,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                             builder: (context) => QuizScreen(
                               databaseRepository: widget.databaseRepository,
                               quizGame: currentQuizgame,
+                              authRepository: widget.authRepository,
                             ),
                           ));
                     },

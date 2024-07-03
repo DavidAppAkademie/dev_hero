@@ -16,7 +16,7 @@ class Score {
 
   factory Score.fromMap(Map<String, dynamic> map) {
     return Score(
-      score: map["score"],
+      score: double.parse((map["score"]).toString()),
       username: map["username"],
     );
   }
