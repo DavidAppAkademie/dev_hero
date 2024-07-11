@@ -5,16 +5,12 @@ import 'package:dev_hero/src/features/quiz/domain/quiz_game.dart';
 import 'package:dev_hero/src/features/quiz/domain/score.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class LeaderboardScreen extends StatefulWidget {
   final QuizGame quizGame;
-  final DatabaseRepository databaseRepository;
-  final AuthRepository authRepository;
-  const LeaderboardScreen(
-      {super.key,
-      required this.databaseRepository,
-      required this.quizGame,
-      required this.authRepository});
+
+  const LeaderboardScreen({super.key, required this.quizGame});
 
   @override
   State<LeaderboardScreen> createState() => _LeaderboardScreenState();
@@ -28,12 +24,12 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
   void initState() {
     super.initState();
     leaderboardFuture =
-        widget.databaseRepository.getLeaderboard(widget.quizGame);
+        context.read<DatabaseRepository>().getLeaderboard(widget.quizGame);
   }
 
   @override
   Widget build(BuildContext context) {
-    final user = widget.authRepository.getCurrentUser()!;
+    final user = context.read<AuthRepository>().getCurrentUser()!;
     Score s = widget.quizGame.calculateScore(user.email!);
 
     return Scaffold(
@@ -103,10 +99,12 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                       setState(() {
                         leaderboardFuture = null;
                       });
-                      await widget.databaseRepository
+                      await context
+                          .read<DatabaseRepository>()
                           .addScore(s, widget.quizGame);
                       setState(() {
-                        leaderboardFuture = widget.databaseRepository
+                        leaderboardFuture = context
+                            .read<DatabaseRepository>()
                             .getLeaderboard(widget.quizGame);
                       });
                     },

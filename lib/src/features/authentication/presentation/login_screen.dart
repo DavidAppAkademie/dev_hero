@@ -1,19 +1,12 @@
 import 'package:dev_hero/src/data/auth_repository.dart';
-import 'package:dev_hero/src/data/database_repository.dart';
 import 'package:dev_hero/src/features/authentication/application/validators.dart';
 import 'package:dev_hero/src/features/authentication/presentation/sign_up_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
-  // Attribute
-  final DatabaseRepository databaseRepository;
-  final AuthRepository authRepository;
-
   // Konstruktor
-  const LoginScreen(
-      {super.key,
-      required this.databaseRepository,
-      required this.authRepository});
+  const LoginScreen({super.key});
 
   // Methoden
   @override
@@ -93,8 +86,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 32),
                 ElevatedButton(
                   onPressed: () async {
-                    await widget.authRepository.loginWithEmailAndPassword(
-                        _emailController.text, _pwController.text);
+                    await context
+                        .read<AuthRepository>()
+                        .loginWithEmailAndPassword(
+                            _emailController.text, _pwController.text);
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(8.0),
@@ -109,10 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SignUpScreen(
-                            databaseRepository: widget.databaseRepository,
-                            authRepository: widget.authRepository,
-                          ),
+                          builder: (context) => const SignUpScreen(),
                         ));
                   },
                   child: const Text("Noch keinen Account? Zur Registrierung"),

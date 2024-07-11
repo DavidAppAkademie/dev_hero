@@ -1,19 +1,11 @@
-import 'package:dev_hero/src/data/auth_repository.dart';
-import 'package:dev_hero/src/data/database_repository.dart';
 import 'package:dev_hero/src/features/leaderboard/presentation/leaderboard_screen.dart';
 import 'package:dev_hero/src/features/quiz/domain/quiz_game.dart';
 import 'package:flutter/material.dart';
 
 class UserScore extends StatelessWidget {
   final QuizGame quizGame;
-  final DatabaseRepository databaseRepository;
-  final AuthRepository authRepository;
 
-  const UserScore(
-      {super.key,
-      required this.quizGame,
-      required this.databaseRepository,
-      required this.authRepository});
+  const UserScore({super.key, required this.quizGame});
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +37,7 @@ class UserScore extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => LeaderboardScreen(
-                    databaseRepository: databaseRepository,
                     quizGame: quizGame,
-                    authRepository: authRepository,
                   ),
                 ),
               );
