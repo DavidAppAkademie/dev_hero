@@ -2,6 +2,7 @@ import 'package:dev_hero/src/data/auth_repository.dart';
 import 'package:dev_hero/src/data/database_repository.dart';
 import 'package:dev_hero/src/features/quiz/domain/quiz_game.dart';
 import 'package:dev_hero/src/features/quiz/presentation/quiz_screen.dart';
+import 'package:dev_hero/src/features/settings/presentation/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,10 +28,17 @@ class _OverviewScreenState extends State<OverviewScreen> {
   // Methoden
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = context.watch<ThemeProvider>().getThemeMode();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Quiz Games"),
         actions: [
+          Switch(
+            value: isDarkMode,
+            onChanged: (_) {
+              context.read<ThemeProvider>().toggleLocalThemeMode();
+            },
+          ),
           IconButton(
             onPressed: () async {
               await context.read<AuthRepository>().logout();

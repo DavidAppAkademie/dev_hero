@@ -2,6 +2,7 @@ import 'package:dev_hero/src/config/theme.dart';
 import 'package:dev_hero/src/data/auth_repository.dart';
 import 'package:dev_hero/src/features/authentication/presentation/login_screen.dart';
 import 'package:dev_hero/src/features/overview/presentation/overview_screen.dart';
+import 'package:dev_hero/src/features/settings/presentation/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +16,7 @@ class App extends StatelessWidget {
 
     const loginKey = ValueKey('loginScreen');
     const overviewKey = ValueKey('overviewScreen');
-
+    final isDarkMode = context.watch<ThemeProvider>().getThemeMode();
     return StreamBuilder(
         stream: context.read<AuthRepository>().authStateChanges(),
         builder: (context, snapshot) {
@@ -24,7 +25,7 @@ class App extends StatelessWidget {
             key: user == null ? loginKey : overviewKey,
             theme: lightTheme,
             darkTheme: darkTheme,
-            themeMode: ThemeMode.light,
+            themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
             home: user == null ? const LoginScreen() : const OverviewScreen(),
             // OverviewScreen(databaseRepository: databaseRepository),
           );

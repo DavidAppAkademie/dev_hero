@@ -4,6 +4,7 @@ import 'package:dev_hero/src/app.dart';
 import 'package:dev_hero/src/data/auth_repository.dart';
 import 'package:dev_hero/src/data/database_repository.dart';
 import 'package:dev_hero/src/data/firestore_database.dart';
+import 'package:dev_hero/src/features/settings/presentation/theme_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,7 @@ Future<void> main() async {
         Provider<AuthRepository>(
           create: (_) => authRepository,
         ),
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
       ],
       child: const App(),
     ),
