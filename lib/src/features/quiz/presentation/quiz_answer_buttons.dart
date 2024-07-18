@@ -15,7 +15,7 @@ class QuizAnswerButtons extends StatelessWidget {
     return _generateAnswerButtons();
   }
 
-  Column _generateAnswerButtons() {
+  SizedBox _generateAnswerButtons() {
     final currentQuestion = quizGame.getCurrentQuizQuestion();
 
     List<Widget> answerButtons = [];
@@ -23,30 +23,31 @@ class QuizAnswerButtons extends StatelessWidget {
       answerButtons.add(
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 4),
-          child: SizedBox(
-            width: 350,
-            child: ElevatedButton(
-              onPressed: () {
-                // Sage dem QuizGame, dass eine Frage beantwortet wurde
-                quizGame.answerQuestion(
-                  QuizAnswer(
-                    quizQuestion: currentQuestion,
-                    selectedAnswerIndex: i,
-                  ),
-                );
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(currentQuestion.answers[i]),
-              ),
+          child: ElevatedButton(
+            onPressed: () {
+              // Sage dem QuizGame, dass eine Frage beantwortet wurde
+              quizGame.answerQuestion(
+                QuizAnswer(
+                  quizQuestion: currentQuestion,
+                  selectedAnswerIndex: i,
+                ),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(currentQuestion.answers[i]),
             ),
           ),
         ),
       );
     }
 
-    return Column(
-      children: answerButtons,
+    return SizedBox(
+      width: 600,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: answerButtons,
+      ),
     );
   }
 }
