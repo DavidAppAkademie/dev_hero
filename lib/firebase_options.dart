@@ -63,7 +63,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '688769884809',
     projectId: 'devhero5',
     storageBucket: 'devhero5.appspot.com',
-    iosBundleId: 'com.example.devHero',
+    iosBundleId: 'com.davidsent.devHero',
   );
-
 }

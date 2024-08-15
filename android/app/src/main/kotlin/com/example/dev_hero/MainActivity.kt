@@ -1,4 +1,4 @@
-package com.example.dev_hero
+package com.davidsent.dev_hero
 
 import io.flutter.embedding.android.FlutterActivity
 
